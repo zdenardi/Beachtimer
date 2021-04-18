@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Beach Timer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+
+</head>
+<script>
+
+
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'b96TnabpVyo',
+          playerVars: {
+            'autoplay': 1,
+            'mute': 1 // N.B. here the mute settings.
+            },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        console.log("Loaded")
+        console.log(player.getVideoLoadedFraction())
+        if(player.getVideoLoadedFraction = 0){
+            event.target.playVideo();
+        }
+        
+      }
+
+    function onPlayerStateChange(event){
+        console.log("Changed!")
+    }
+    function stopVideo() {
+      player.stopVideo();
+    }
+
+    function repeater(refreshRate,func){
+    var refresh=refreshRate; // Refresh rate in milli seconds
+    mytime=setTimeout(func,refresh)
+    }
+    function checkLoaded(){
+        if(player.getPlayerState = 5){
+            console.log("ready!")
+        }
+            repeater(1000,'checkLoaded()')
+        }
+    function clock() {
+    var dateobj = new Date()
+    var min = ((dateobj.getMinutes())-59).toString()
+    var sec = dateobj.getSeconds()-60;       
+    document.getElementById('clock').innerHTML = Math.abs(min)+":"+sec.toString() + "."+dateobj.getMilliseconds().toString();
+    repeater(1,'clock()');
+    }
+      function timify(){
+        var timeNow = Date.now()
+        var dateObj = new Date()
+        var min = dateObj.getMinutes()*60
+        var sec = dateObj.getSeconds();
+        //get the time that we want
+        var timeWanted = min+sec
+        //loadPlayer to Loadtime, 
+        var buffer = 1 //in seconds
+        player.pauseVideo();
+        player.seekTo(timeWanted+buffer)
+ 
+        setTimeout(()=>{
+            player.playVideo();
+        },buffer*1000)
+        
+
+      }
+      
+
+
+
+  
+
+</script>
+<html>
+<body class="bg-secondary" onload=clock()>
+    <div id="main" class="container-fluid">
+        
+
+        <div class="d-flex justify-content-center pt-5">
+            
+            <div class="card bg-dark">
+                <p id="clock" class="text-primary">Clock</p>
+                <div class="card-body d-flex justify-content-center">
+                    
+                    <div id="player"></div>
+                </div>
+                <div class="d-flex justify-content-center p-3">
+                <button onclick="timify()" class="btn btn-primary">TIMIFY ME</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+</html>
+
+
