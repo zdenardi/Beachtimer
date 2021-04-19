@@ -5,93 +5,12 @@
 
   <title>Beach Timer</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+  <script src="timify.js" type="text/javascript"></script>
+  <script src="clock.js" type="text/javascript"></script>
+  <script src="youtubeplayer.js" type="text/javascript"></script>
 
 </head>
-<script>
 
-
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: 'b96TnabpVyo',
-          playerVars: {
-            'autoplay': 1,
-            'mute': 1 // N.B. here the mute settings.
-            },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      function onPlayerReady(event) {
-        console.log("Loaded")
-        console.log(player.getVideoLoadedFraction())
-        if(player.getVideoLoadedFraction = 0){
-            event.target.playVideo();
-        }
-        
-      }
-
-    function onPlayerStateChange(event){
-        console.log("Changed!")
-    }
-    function stopVideo() {
-      player.stopVideo();
-    }
-
-    function repeater(refreshRate,func){
-    var refresh=refreshRate; // Refresh rate in milli seconds
-    mytime=setTimeout(func,refresh)
-    }
-    function checkLoaded(){
-        if(player.getPlayerState = 5){
-            console.log("ready!")
-        }
-            repeater(1000,'checkLoaded()')
-        }
-    function clock() {
-    var dateobj = new Date()
-    var min = ((dateobj.getMinutes())-59).toString()
-    var sec = dateobj.getSeconds()-60;       
-    document.getElementById('clock').innerHTML = Math.abs(min)+":"+sec.toString() + "."+dateobj.getMilliseconds().toString();
-    repeater(1,'clock()');
-    }
-      function timify(){
-        var timeNow = Date.now()
-        var dateObj = new Date()
-        var min = dateObj.getMinutes()*60
-        var sec = dateObj.getSeconds();
-        //get the time that we want
-        var timeWanted = min+sec
-        //loadPlayer to Loadtime, 
-        var buffer = 1 //in seconds
-        player.pauseVideo();
-        player.seekTo(timeWanted+buffer)
- 
-        setTimeout(()=>{
-            player.playVideo();
-        },buffer*1000)
-        
-
-      }
-      
-
-
-
-  
-
-</script>
 <html>
 <body class="bg-secondary" onload=clock()>
     <div id="main" class="container-fluid">
